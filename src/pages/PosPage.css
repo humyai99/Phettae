@@ -1,0 +1,78 @@
+.pos-page {
+  display: flex;
+  height: calc(100vh - 50px); /* Adjust for dev nav */
+  background-color: #f4f5f7;
+  font-family: sans-serif;
+}
+
+.main-pos-view {
+  flex: 3;
+  display: flex;
+  border-right: 2px solid #bdc3c7;
+}
+
+.menu-container {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #d1d5db;
+}
+
+.pos-header {
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.pos-header h1, .pos-header h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.cart-container {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.billing-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+}
+
+.billing-list {
+  overflow-y: auto;
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.billing-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s;
+}
+
+.billing-item:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}

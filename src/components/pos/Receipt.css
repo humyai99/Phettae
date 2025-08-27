@@ -1,0 +1,62 @@
+/* A4 page is 210mm wide. 58mm is a common receipt width. */
+@media print {
+  body {
+    width: 58mm;
+    margin: 0;
+  }
+  .receipt {
+    box-shadow: none;
+    border: none;
+  }
+}
+
+.receipt {
+  width: 320px; /* Wider for screen view, will be shrunk by @media print */
+  margin: 20px auto;
+  padding: 16px;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #fff;
+  border: 1px dashed #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.receipt-header, .thank-you {
+  text-align: center;
+}
+
+.receipt-header h2 {
+  margin: 0;
+}
+
+.receipt-header p {
+  margin: 4px 0;
+}
+
+.receipt hr {
+  border: none;
+  border-top: 1px dashed #000;
+  margin: 12px 0;
+}
+
+.receipt-item, .receipt-total, .payment-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.item-name {
+  flex-grow: 1;
+}
+
+.item-price {
+  white-space: nowrap;
+}
+
+.receipt-total, .payment-details {
+  font-weight: bold;
+}
+
+.thank-you .qr-code {
+  max-width: 100px;
+  margin: 8px auto;
+}

@@ -1,0 +1,36 @@
+.menu-category-tabs {
+  display: flex;
+  overflow-x: auto;
+  padding: 8px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-button {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  background-color: #761F1C; /* Brand color */
+  color: white;
+  border-color: #761F1C;
+}
+
+.tab-button:hover {
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}
+
+.tab-button.active:hover {
+  background-color: #601916;
+  border-color: #601916;
+}

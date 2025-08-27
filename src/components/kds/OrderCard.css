@@ -1,0 +1,146 @@
+.order-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-top: 5px solid #4CAF50; /* Green for 'new' */
+}
+
+.order-card.in_progress {
+  border-top-color: #FFC107; /* Amber for 'in_progress' */
+}
+
+.order-card.ready {
+  border-top-color: #03A9F4; /* Blue for 'ready' */
+  opacity: 0.7;
+}
+
+.order-card.sla-exceeded {
+  border-top-color: #F44336; /* Red for SLA exceeded */
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.card-header .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.card-header .timer {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.line-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.line-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  gap: 8px;
+}
+
+.line-item.cancelled {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.line-item.cancelled .cancel-item-btn {
+  display: none;
+}
+
+.item-main-info {
+  display: flex;
+  align-items: flex-start;
+}
+
+.cancel-item-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.line-item .quantity {
+  font-weight: bold;
+  margin-right: 8px;
+  min-width: 25px;
+}
+
+.line-item .item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.line-item .item-name {
+  font-weight: 500;
+}
+
+.line-item .modifier {
+  font-size: 0.9em;
+  color: #555;
+  padding-left: 10px;
+}
+
+.card-footer {
+  padding-top: 16px;
+  margin-top: auto;
+}
+
+.card-footer button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-start {
+  background-color: #FFC107;
+  color: #000;
+}
+
+.btn-ready {
+  background-color: #03A9F4;
+  color: white;
+}

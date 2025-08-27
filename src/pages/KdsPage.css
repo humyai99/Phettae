@@ -1,0 +1,44 @@
+.kds-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #e9ecef;
+  font-family: sans-serif;
+}
+
+.kds-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.kds-header h1 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.station-toggle button {
+  padding: 8px 16px;
+  margin-left: 8px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.station-toggle button.active {
+  background-color: #761F1C; /* Brand color */
+  color: white;
+  border-color: #761F1C;
+}
+
+.kds-columns-container {
+  display: flex;
+  flex-grow: 1;
+  padding: 16px;
+  overflow-x: auto;
+}

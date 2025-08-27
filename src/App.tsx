@@ -12,7 +12,8 @@ import './App.css';
 
 type DeliveryPlatform = 'Shopee' | 'Grab' | 'LINE MAN';
 
-interface NewOrderPayload {
+// Exporting this interface to be used in PosPage
+export interface NewOrderPayload {
   type: OrderType;
   details: {
     table_number?: number;

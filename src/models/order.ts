@@ -31,6 +31,7 @@ export interface OrderLineItem {
 
 export type OrderType = 'dine_in' | 'takeaway' | 'delivery';
 export type OrderStatus = 'new' | 'in_progress' | 'ready' | 'closed' | 'cancelled';
+export type DeliveryPlatform = 'Shopee' | 'Grab' | 'LINE MAN';
 
 /**
  * The main Order object.
@@ -45,7 +46,7 @@ export interface Order {
   // Details specific to the order type
   table_number?: number; // For 'dine_in'
   delivery_info?: {
-    platform: 'Shopee' | 'Grab' | 'LINE MAN';
+    platform: DeliveryPlatform;
     order_number: string;
   };
 

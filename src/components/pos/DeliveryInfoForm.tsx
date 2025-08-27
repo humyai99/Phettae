@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { OrderType } from '../../models';
+import { DeliveryPlatform } from '../../models';
 import './DeliveryInfoForm.css';
-
-// Define the specific platform type
-type DeliveryPlatform = 'Shopee' | 'Grab' | 'LINE MAN';
 
 interface DeliveryInfoFormProps {
   onConfirm: (details: { platform: DeliveryPlatform; order_number: string }) => void;
@@ -19,7 +16,6 @@ const DeliveryInfoForm: React.FC<DeliveryInfoFormProps> = ({ onConfirm, onBack }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
-      // platform is guaranteed to be a DeliveryPlatform here, not ''
       onConfirm({ platform, order_number: orderNumber });
     }
   };

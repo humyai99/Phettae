@@ -8,17 +8,16 @@ import OrderTypeSelection from '../components/pos/OrderTypeSelection';
 import TableSelection from '../components/pos/TableSelection';
 import DeliveryInfoForm from '../components/pos/DeliveryInfoForm';
 import PaymentModal from '../components/pos/PaymentModal';
-import { MenuItem, OrderLineItem, OrderType, Order, PaymentMethod } from '../models';
-import { NewOrderPayload } from '../App'; // Import the shared interface
+import { MenuItem, OrderLineItem, OrderType, Order, PaymentMethod, DeliveryPlatform } from '../models';
+import type { NewOrderPayload } from '../App'; // Use type-only import
 import './PosPage.css';
 
-type DeliveryPlatform = 'Shopee' | 'Grab' | 'LINE MAN';
 type OrderStep = 'TYPE_SELECTION' | 'DETAIL_SELECTION' | 'MENU';
 type OrderDetails = { table_number?: number; delivery_info?: { platform: DeliveryPlatform; order_number: string } };
 
 interface PosPageProps {
   orders: Order[];
-  onSendOrder: (payload: NewOrderPayload) => void; // Use the imported interface
+  onSendOrder: (payload: NewOrderPayload) => void;
   onProcessPayment: (orderId: string, method: PaymentMethod, amountReceived?: number) => void;
 }
 

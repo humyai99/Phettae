@@ -11,8 +11,9 @@ import PaymentModal from '../components/pos/PaymentModal';
 import { MenuItem, OrderLineItem, OrderType, Order, PaymentMethod } from '../models';
 import './PosPage.css';
 
+type DeliveryPlatform = 'Shopee' | 'Grab' | 'LINE MAN';
 type OrderStep = 'TYPE_SELECTION' | 'DETAIL_SELECTION' | 'MENU';
-type OrderDetails = { table_number?: number; delivery_info?: { platform: string; order_number: string } };
+type OrderDetails = { table_number?: number; delivery_info?: { platform: DeliveryPlatform; order_number: string } };
 
 interface PosPageProps {
   orders: Order[];
@@ -43,7 +44,7 @@ const PosPage: React.FC<PosPageProps> = ({ orders, onSendOrder, onProcessPayment
 
   const handleSelectOrderType = (type: OrderType) => { setOrderType(type); if (type === 'takeaway') { setOrderDetails({}); setOrderStep('MENU'); } else { setOrderStep('DETAIL_SELECTION'); } };
   const handleSelectTable = (tableId: number) => { setOrderDetails({ table_number: tableId }); setOrderStep('MENU'); };
-  const handleConfirmDelivery = (details: { platform: string; order_number: string }) => { setOrderDetails({ delivery_info: details }); setOrderStep('MENU'); };
+  const handleConfirmDelivery = (details: { platform: DeliveryPlatform; order_number: string }) => { setOrderDetails({ delivery_info: details }); setOrderStep('MENU'); };
   const handleBackToTypeSelection = () => { setOrderStep('TYPE_SELECTION'); setOrderType(null); };
   const handleSelectCategory = (categoryId: string) => setActiveCategoryId(categoryId);
   const handleCloseModifierModal = () => { setIsModifierModalOpen(false); setSelectedItemForModifier(null); };

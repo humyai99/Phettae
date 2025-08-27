@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { OrderType } from '../../models';
 import './DeliveryInfoForm.css';
 
+// Define the specific platform type
+type DeliveryPlatform = 'Shopee' | 'Grab' | 'LINE MAN';
+
 interface DeliveryInfoFormProps {
-  onConfirm: (details: { platform: string; order_number: string }) => void;
+  onConfirm: (details: { platform: DeliveryPlatform; order_number: string }) => void;
   onBack: () => void;
 }
 
 const DeliveryInfoForm: React.FC<DeliveryInfoFormProps> = ({ onConfirm, onBack }) => {
-  const [platform, setPlatform] = useState<'Shopee' | 'Grab' | 'LINE MAN' | ''>('');
+  const [platform, setPlatform] = useState<DeliveryPlatform | ''>('');
   const [orderNumber, setOrderNumber] = useState('');
 
   const isFormValid = platform && orderNumber.trim() !== '';
@@ -15,6 +19,7 @@ const DeliveryInfoForm: React.FC<DeliveryInfoFormProps> = ({ onConfirm, onBack }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
+      // platform is guaranteed to be a DeliveryPlatform here, not ''
       onConfirm({ platform, order_number: orderNumber });
     }
   };
@@ -32,7 +37,7 @@ const DeliveryInfoForm: React.FC<DeliveryInfoFormProps> = ({ onConfirm, onBack }
             <select
               id="platform"
               value={platform}
-              onChange={(e) => setPlatform(e.target.value as any)}
+              onChange={(e) => setPlatform(e.target.value as DeliveryPlatform | '')}
               required
             >
               <option value="" disabled>Select a platform</option>

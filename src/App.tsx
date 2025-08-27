@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PosPage from './pages/PosPage';
 import KdsPage from './pages/KdsPage';
 import DashboardPage from './pages/DashboardPage';
@@ -10,9 +10,14 @@ import { Order, OrderLineItem, OrderType, Transaction, PaymentMethod } from './m
 import { mockOrders } from './services/mockData';
 import './App.css';
 
+type DeliveryPlatform = 'Shopee' | 'Grab' | 'LINE MAN';
+
 interface NewOrderPayload {
   type: OrderType;
-  details: { table_number?: number; delivery_info?: { platform: string; order_number: string } };
+  details: {
+    table_number?: number;
+    delivery_info?: { platform: DeliveryPlatform; order_number: string };
+  };
   items: OrderLineItem[];
 }
 
@@ -33,12 +38,18 @@ function App() {
   const handleSendOrder = (payload: NewOrderPayload) => {
     const newOrder: Order = {
       id: getNextOrderId(),
-      firestore_id: `order-${Date.now()}`, type: payload.type, status: 'new', ...payload.details,
+      firestore_id: `order-${Date.now()}`,
+      type: payload.type,
+      status: 'new',
+      table_number: payload.details.table_number,
+      delivery_info: payload.details.delivery_info,
       items: payload.items,
       subtotal: payload.items.reduce((sum, item) => sum + item.line_item_total, 0),
       discount: 0,
       total: payload.items.reduce((sum, item) => sum + item.line_item_total, 0),
-      timestamps: { created_at: Date.now() }, sla_exceeded: false, created_by_user_id: 'user-pos-1',
+      timestamps: { created_at: Date.now() },
+      sla_exceeded: false,
+      created_by_user_id: 'user-pos-1',
     };
     setOrders(prev => [...prev, newOrder]);
   };
@@ -50,17 +61,18 @@ function App() {
   const handleCancelItem = (orderId: string, itemId: string) => {
     setOrders(prevOrders => prevOrders.map(order => {
       if (order.firestore_id === orderId) {
-        const newItems = order.items.map(item => {
+        const newItems = order.items.map((item: OrderLineItem) => {
           if (item.id === itemId) {
-            return { ...item, status: 'cancelled' };
+            const cancelledItem: OrderLineItem = { ...item, status: 'cancelled' };
+            return cancelledItem;
           }
           return item;
         });
-        // Also update the total price of the order
         const newTotal = newItems
           .filter(item => item.status !== 'cancelled')
           .reduce((sum, item) => sum + item.line_item_total, 0);
-        return { ...order, items: newItems, total: newTotal };
+        const updatedOrder: Order = { ...order, items: newItems, total: newTotal, subtotal: newTotal };
+        return updatedOrder;
       }
       return order;
     }));
@@ -70,7 +82,8 @@ function App() {
     const order = orders.find(o => o.firestore_id === orderId);
     if (!order) return;
     const newTransaction: Transaction = {
-      id: `trans-${Date.now()}`, order_id: orderId,
+      id: `trans-${Date.now()}`,
+      order_id: orderId,
       amount: method === 'cash' ? amountReceived! : order.total,
       method: method, status: 'completed', created_at: Date.now(), processed_by_user_id: 'user-pos-1',
     };
@@ -82,8 +95,6 @@ function App() {
 
   return (
     <Router>
-      {/* The app now flows naturally, so dev navigation is removed. */}
-      {/* For testing, you can manually navigate to /kds or /dashboard */}
       <Routes>
         <Route path="/" element={<PosPage orders={orders} onSendOrder={handleSendOrder} onProcessPayment={handleProcessPayment} />} />
         <Route path="/pos" element={<PosPage orders={orders} onSendOrder={handleSendOrder} onProcessPayment={handleProcessPayment} />} />
